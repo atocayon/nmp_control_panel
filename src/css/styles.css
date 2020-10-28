@@ -1,4 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Turret+Road:wght@200&display=swap");
+.login-container h1 {
+  font-family: "Roboto", sans-serif;
+  margin-top: 20vh;
+  margin-bottom: 5vh;
+  text-align: center;
+}
+.login-container h1 span {
+  color: #2196F3;
+}
+
 body {
   padding: 0;
   margin: 0;
+}
+
+.loading h5 {
+  margin-top: 30vh;
+  text-align: center;
+}
+
+.logoOnNotFound {
+  margin-top: 12vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notFoundPage {
+  text-align: center;
+  color: #607d8b;
 }
