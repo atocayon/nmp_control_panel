@@ -29,4 +29,6 @@ body{
   .main {
     margin-left: 15vw; /* Same as the width of the sidenav */
     padding: 0px 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
   }

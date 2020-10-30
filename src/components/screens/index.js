@@ -11,13 +11,21 @@ import { connect } from "react-redux";
 import { clear_message } from "../../redux/actions/clear_message";
 import { input_change } from "../../redux/actions/input_change";
 import { login } from "../../redux/actions/login_logout";
-import {fetch_all_users} from "../../redux/actions/fetch_all_users";
+import { fetch_all_users } from "../../redux/actions/fetch_all_users";
+import { fetch_current_user } from "../../redux/actions/fetch_current_user";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
   const [inputType, setInputType] = useState(false);
   const [error, setError] = useState({});
   const [redirect, setRedirect] = useState({ location: "" });
+  const [openUpdateUserModal, setOpenUpdateUserModal] = useState({
+    open: false,
+    title: "",
+    value: "",
+  });
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(15);
 
   useEffect(() => {
     const obj = getFromStorage("control-panel");
@@ -25,8 +33,9 @@ function Screens(props) {
     setEndSession(!(obj && obj.token));
     console.log(props.match.params);
 
-    if(obj && obj.token){
+    if (obj && obj.token) {
       props.fetch_all_users();
+      props.fetch_current_user(obj.token);
     }
 
     if (props._login.message !== "") {
@@ -89,6 +98,34 @@ function Screens(props) {
       return;
     }
   };
+
+  const handleOpenUserUpdateModal = (val) => {
+    setOpenUpdateUserModal({
+      ...openUpdateUserModal,
+      open: true,
+      title: val.title,
+      value: val.value,
+    });
+  };
+
+  const handleCloseOpenUserUpdate = () => {
+    setOpenUpdateUserModal({
+      ...openUpdateUserModal,
+      open: false,
+      title: "",
+      value: "",
+    });
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <div>
       {loading && <CircularProgress />}
@@ -99,14 +136,23 @@ function Screens(props) {
 
       {Object.keys(props.match.params).length === 0 &&
       !props.match.params.login ? (
-        <SideBar />
+        <SideBar user={props._fetch_current_user} />
       ) : (
         ""
       )}
 
       {Object.keys(props.match.params).length === 0 && (
         <div className={"main"}>
-          <Main data={props._fetch_all_users} />
+          <Main
+            data={props._fetch_all_users}
+            openUpdateUserModal={openUpdateUserModal}
+            handleOpenUserUpdateModal={handleOpenUserUpdateModal}
+            handleCloseOpenUserUpdate={handleCloseOpenUserUpdate}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+          />
         </div>
       )}
 
@@ -127,7 +173,8 @@ function Screens(props) {
 const mapStateToProps = (state) => {
   return {
     _login: state.login,
-    _fetch_all_users: state.fetch_all_users
+    _fetch_all_users: state.fetch_all_users,
+    _fetch_current_user: state.fetch_current_user,
   };
 };
 
@@ -135,7 +182,8 @@ const mapDispatchToProps = {
   login,
   input_change,
   clear_message,
-  fetch_all_users
+  fetch_all_users,
+  fetch_current_user,
 };
 
 export default connect(

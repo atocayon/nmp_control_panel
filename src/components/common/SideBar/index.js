@@ -4,9 +4,28 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import DescriptionIcon from "@material-ui/icons/Description";
 import InsertChartIcon from "@material-ui/icons/InsertChart";
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import { NavLink } from "react-router-dom";
+import logo from "../../../img/logo.png";
+import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+
+  large: {
+    width: theme.spacing(12),
+    height: theme.spacing(12),
+  },
+}));
 export default function SideBar(props) {
+  const classes = useStyles();
+
   const activeStyle = {
     color: "#fff",
     fontWeight: "bold",
@@ -16,6 +35,17 @@ export default function SideBar(props) {
   return (
     <div>
       <div className={"sidenav"}>
+        {/* <img src={logo} className={"brand"} alt={"NMP"} /> */}
+        <div className={"brand"}>
+          <Avatar
+            alt={props.user.name}
+            src="/static/images/avatar/1.jpg"
+            className={classes.large}
+            title={props.user.name}
+          />
+         
+        </div>
+
         <NavLink
           activeStyle={activeStyle}
           to={"/cpanel"}
@@ -42,7 +72,7 @@ export default function SideBar(props) {
           exact
           className={"navLink"}
         >
-           <HomeWorkIcon />
+          <HomeWorkIcon />
           &nbsp;Sections
         </NavLink>
 
@@ -52,7 +82,7 @@ export default function SideBar(props) {
           exact
           className={"navLink"}
         >
-           <DescriptionIcon />
+          <DescriptionIcon />
           &nbsp;Document Types
         </NavLink>
 
@@ -62,7 +92,7 @@ export default function SideBar(props) {
           exact
           className={"navLink"}
         >
-           <InsertChartIcon />
+          <InsertChartIcon />
           &nbsp;Document Logs
         </NavLink>
 
@@ -72,10 +102,9 @@ export default function SideBar(props) {
           exact
           className={"navLink"}
         >
-           <PowerSettingsNewIcon />
-          &nbsp;Logout
+          <PowerSettingsNewIcon />
+          &nbsp;Logout, {props.user.name}
         </NavLink>
-    
       </div>
     </div>
   );
