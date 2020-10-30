@@ -7,7 +7,6 @@ import { Provider as ReduxProvider } from "react-redux";
 import { store } from "./redux/configureStore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { SnackbarProvider } from "notistack";
-import "./css/styles.css";
 
 ReactDOM.render(
   <ReduxProvider store={store}>

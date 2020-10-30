@@ -3,7 +3,7 @@ import actionTypes from "../actions/actionTypes";
 const defaultState = {
   usernameOrEmail: "",
   password: "",
-  success: false,
+  message: "",
 };
 
 const login = (state = defaultState, action) => {
@@ -15,7 +15,12 @@ const login = (state = defaultState, action) => {
 
     case actionTypes.LOGIN:
       return Object.assign({}, state, {
-        success: true,
+        message: action.data,
+      });
+
+    case actionTypes.CLEAR_MESSAGE:
+      return Object.assign({}, state, {
+        message: "",
       });
 
     default:

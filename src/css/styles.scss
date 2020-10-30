@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Turret+Road:wght@200&display=swap');
 @import "login";
+@import "sidenav";
+@import "dashboard";
 body{
     padding: 0;
     margin: 0;
@@ -22,4 +24,9 @@ body{
   .notFoundPage {
     text-align: center;
     color: #607d8b;
+  }
+
+  .main {
+    margin-left: 15vw; /* Same as the width of the sidenav */
+    padding: 0px 10px;
   }
