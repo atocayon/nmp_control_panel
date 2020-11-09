@@ -1,0 +1,17 @@
+import actionTypes from "./actionTypes";
+import axios from "axios";
+
+const update_user_info = ({ ...data }) => {
+  return (dispatch) => {
+    return axios
+      .post(`http://${process.env.REACT_APP_SERVER}/user/update`, { ...data })
+      .then((res) => {
+        dispatch({ type: actionTypes.UPDATE });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+};
+
+export { update_user_info };

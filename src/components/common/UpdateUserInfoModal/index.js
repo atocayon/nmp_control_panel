@@ -1,41 +1,76 @@
 // @flow
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
-import InputField from "../../common/textField/InputField";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
+import Divider from "@material-ui/core/Divider";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import CloseIcon from "@material-ui/icons/Close";
+import Slide from "@material-ui/core/Slide";
+
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    position: "relative",
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
+}));
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 export default function UpdateUserInfoModal(props) {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const classes = useStyles();
+
+  // const theme = useTheme();
+  // const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Dialog
-      fullScreen={fullScreen}
+      fullScreen
       open={props.data.open}
       onClose={props.handleClose}
-      aria-labelledby="responsive-dialog-title"
+      TransitionComponent={Transition}
     >
-      <DialogTitle id="responsive-dialog-title"><b>{props.data.title}</b></DialogTitle>
-      <DialogContent>
-        <InputField
-          label={props.data.title}
-          name={props.data.value}
-          value={props.data.value}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={props.handleClose} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={props.handleClose} color="primary" autoFocus>
-          Save
-        </Button>
-      </DialogActions>
+      <AppBar className={classes.appBar}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            onClick={props.handleClose}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Sound
+          </Typography>
+          <Button autoFocus color="inherit" onClick={props.handleClose}>
+            save
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <List>
+        <ListItem button>
+          <ListItemText primary="Phone ringtone" secondary="Titania" />
+        </ListItem>
+        <Divider />
+        <ListItem button>
+          <ListItemText
+            primary="Default notification ringtone"
+            secondary="Tethys"
+          />
+        </ListItem>
+      </List>
     </Dialog>
   );
 }

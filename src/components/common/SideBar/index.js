@@ -58,7 +58,7 @@ export default function SideBar(props) {
 
         <NavLink
           activeStyle={activeStyle}
-          to={"/cpanel/division"}
+          to={"/cpanel/divisions"}
           exact
           className={"navLink"}
         >
@@ -78,7 +78,7 @@ export default function SideBar(props) {
 
         <NavLink
           activeStyle={activeStyle}
-          to={"/cpanel/docType"}
+          to={"/cpanel/docTypes"}
           exact
           className={"navLink"}
         >

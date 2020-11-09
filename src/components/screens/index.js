@@ -4,6 +4,10 @@ import { Redirect } from "react-router";
 import { getFromStorage } from "../../local_storage";
 import CircularProgress from "../common/CircularProgress";
 import Login from "../screens/Login";
+import Divisions from "../screens/Divisions";
+import Sections from "../screens/Sections";
+import DocLogs from "../screens/DocLogs";
+import DocTypes from "../screens/DocTypes";
 import Main from "../screens/Main";
 import SideBar from "../common/SideBar";
 import { withSnackbar } from "notistack";
@@ -13,17 +17,17 @@ import { input_change } from "../../redux/actions/input_change";
 import { login } from "../../redux/actions/login_logout";
 import { fetch_all_users } from "../../redux/actions/fetch_all_users";
 import { fetch_current_user } from "../../redux/actions/fetch_current_user";
+import { handleOnClickEditUser } from "../../redux/actions/handleOnClickEditUser";
+import { handleCloseModal } from "../../redux/actions/handleCloseModal";
+import { update_user_info } from "../../redux/actions/update_user_info";
+
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
   const [inputType, setInputType] = useState(false);
   const [error, setError] = useState({});
   const [redirect, setRedirect] = useState({ location: "" });
-  const [openUpdateUserModal, setOpenUpdateUserModal] = useState({
-    open: false,
-    title: "",
-    value: "",
-  });
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(15);
 
@@ -68,7 +72,16 @@ function Screens(props) {
         setRedirect({ ...redirect, location: "cpanel" });
       }
     }
-  }, [redirect, props.match.params, props._login.message]);
+
+    if (props.user_update_modal.update) {
+      props.clear_message();
+    }
+  }, [
+    redirect,
+    props.match.params,
+    props._login.message,
+    props.user_update_modal.update,
+  ]);
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -94,27 +107,9 @@ function Screens(props) {
 
     if (props._login.usernameOrEmail !== "" && props._login.password !== "") {
       props.login(props._login);
-      console.log("login");
+      // console.log("login");
       return;
     }
-  };
-
-  const handleOpenUserUpdateModal = (val) => {
-    setOpenUpdateUserModal({
-      ...openUpdateUserModal,
-      open: true,
-      title: val.title,
-      value: val.value,
-    });
-  };
-
-  const handleCloseOpenUserUpdate = () => {
-    setOpenUpdateUserModal({
-      ...openUpdateUserModal,
-      open: false,
-      title: "",
-      value: "",
-    });
   };
 
   const handleChangePage = (event, newPage) => {
@@ -134,29 +129,29 @@ function Screens(props) {
         <Redirect to={`/${redirect.location}`} />
       )}
 
-      {Object.keys(props.match.params).length === 0 &&
-      !props.match.params.login ? (
+      {props.match.params.route !== "login" && (
         <SideBar user={props._fetch_current_user} />
-      ) : (
-        ""
       )}
 
-      {Object.keys(props.match.params).length === 0 && (
+      {Object.keys(props.match.params).length === 0 &&
+      !props.match.params.route ? (
         <div className={"main"}>
           <Main
             data={props._fetch_all_users}
-            openUpdateUserModal={openUpdateUserModal}
-            handleOpenUserUpdateModal={handleOpenUserUpdateModal}
-            handleCloseOpenUserUpdate={handleCloseOpenUserUpdate}
+            openUpdateUserModal={props.user_update_modal}
+            handleOpenUserUpdateModal={props.handleOnClickEditUser}
+            handleCloseOpenUserUpdate={props.handleCloseModal}
             page={page}
             rowsPerPage={rowsPerPage}
             handleChangePage={handleChangePage}
             handleChangeRowsPerPage={handleChangeRowsPerPage}
+            input_change={props.input_change}
+            update_user_info={props.update_user_info}
           />
         </div>
-      )}
+      ) : null}
 
-      {props.match.params.login && (
+      {props.match.params.route === "login" && (
         <Login
           onChange={props.input_change}
           data={props.login}
@@ -165,6 +160,31 @@ function Screens(props) {
           onLogin={onLogin}
           error={error}
         />
+      )}
+
+      {props.match.params.route === "divisions" && (
+        <div className={"main"}>
+          <Divisions />
+        </div>
+      )}
+
+      {props.match.params.route === "sections" && (
+        <div className={"main"}>
+          <Sections />
+        </div>
+      )}
+
+      {props.match.params.route === "docLogs" && (
+        <div className={"main"}>
+          {" "}
+          <DocLogs />
+        </div>
+      )}
+
+      {props.match.params.route === "docTypes" && (
+        <div className={"main"}>
+          <DocTypes />
+        </div>
       )}
     </div>
   );
@@ -175,6 +195,7 @@ const mapStateToProps = (state) => {
     _login: state.login,
     _fetch_all_users: state.fetch_all_users,
     _fetch_current_user: state.fetch_current_user,
+    user_update_modal: state.user_update_modal,
   };
 };
 
@@ -184,6 +205,9 @@ const mapDispatchToProps = {
   clear_message,
   fetch_all_users,
   fetch_current_user,
+  handleOnClickEditUser,
+  handleCloseModal,
+  update_user_info,
 };
 
 export default connect(
