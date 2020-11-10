@@ -71,6 +71,7 @@ export default function UpdateUserInfoModal(props) {
                   variant={"outlined"}
                   label={"Employee ID"}
                   value={props.data.data.employeeId}
+                  onChange={props.input_change}
                 />
                 <br />
                 <br />
@@ -82,6 +83,7 @@ export default function UpdateUserInfoModal(props) {
                     { id: "admin", value: "Admin" },
                     { id: "member", value: "Member" },
                   ]}
+                  onChange={props.input_change}
                 />
                 <br />
                 <br />
@@ -93,6 +95,7 @@ export default function UpdateUserInfoModal(props) {
                     { id: "admin", value: "Admin" },
                     { id: "member", value: "Member" },
                   ]}
+                  onChange={props.input_change}
                 />
                 <br />
                 <br />
@@ -101,6 +104,7 @@ export default function UpdateUserInfoModal(props) {
                   label={"Section"}
                   value={props.data.data.section}
                   option={props.sections}
+                  onChange={props.input_change}
                 />
               </div>
             </div>
@@ -110,6 +114,7 @@ export default function UpdateUserInfoModal(props) {
               variant={"outlined"}
               label={"Name"}
               value={props.data.data.name || ""}
+              onChange={props.input_change}
             />
             <br />
             <br />
@@ -118,6 +123,7 @@ export default function UpdateUserInfoModal(props) {
               variant={"outlined"}
               label={"Username"}
               value={props.data.data.username || ""}
+              onChange={props.input_change}
             />
             <br />
             <br />
@@ -126,6 +132,7 @@ export default function UpdateUserInfoModal(props) {
               variant={"outlined"}
               label={"Contact"}
               value={props.data.data.contact || ""}
+              onChange={props.input_change}
             />
             <br />
             <br />
@@ -134,6 +141,7 @@ export default function UpdateUserInfoModal(props) {
               variant={"outlined"}
               label={"Email"}
               value={props.data.data.email || ""}
+              onChange={props.input_change}
             />
 
             <br />
@@ -143,6 +151,7 @@ export default function UpdateUserInfoModal(props) {
               variant={"outlined"}
               label={"Position"}
               value={props.data.data.position || ""}
+              onChange={props.input_change}
             />
           </div>
         </div>

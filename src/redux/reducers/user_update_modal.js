@@ -4,7 +4,7 @@ const user_update_modal = (
   state = {
     open: false,
     update: false,
-    data: {}
+    data: {},
   },
   action
 ) => {
@@ -12,7 +12,12 @@ const user_update_modal = (
     case actionTypes.EDIT:
       return Object.assign({}, state, {
         open: true,
-        data: action.data
+        data: action.data,
+      });
+
+    case actionTypes.INPUT_CHANGE:
+      return Object.assign({}, state, {
+        data: { ...state.data, [action.data.name]: action.data.value },
       });
 
     case actionTypes.CLOSE_MODAL:

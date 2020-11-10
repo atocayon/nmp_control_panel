@@ -28,7 +28,7 @@ export default function SelectField(props) {
         value={props.value}
         displayEmpty
         name={props.name}
-        onChange={props.handleChange}
+        onChange={props.onChange}
       >
         <MenuItem value={props.value !== null ? props.value : ""}>
           <em>
@@ -43,15 +43,15 @@ export default function SelectField(props) {
                   item.value !==
                   props.value.charAt(0).toUpperCase() + props.value.slice(1)
               )
-              .map((item) => (
-                <React.Fragment>
-                  <MenuItem value={item.id}>{item.value}</MenuItem>
-                </React.Fragment>
+              .map((item, key) => (
+                <MenuItem key={key} value={item.id}>
+                  {item.value}
+                </MenuItem>
               ))
-          : props.option.map((item) => (
-              <React.Fragment>
-                <MenuItem value={item.id}>{item.value}</MenuItem>
-              </React.Fragment>
+          : props.option.map((item, key) => (
+              <MenuItem key={key} value={item.id}>
+                {item.value}
+              </MenuItem>
             ))}
       </Select>
     </FormControl>
