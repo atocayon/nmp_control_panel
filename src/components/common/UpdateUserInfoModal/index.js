@@ -53,7 +53,14 @@ export default function UpdateUserInfoModal(props) {
           <Typography variant="h6" className={classes.title}>
             User Information
           </Typography>
-          <Button autoFocus color="inherit" onClick={props.handleClose}>
+          <Button
+            autoFocus
+            color="inherit"
+            onClick={(e) => {
+              e.preventDefault();
+              props.update_user_info(props.data.data);
+            }}
+          >
             save
           </Button>
         </Toolbar>
