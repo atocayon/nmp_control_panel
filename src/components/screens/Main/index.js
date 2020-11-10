@@ -151,7 +151,7 @@ export default function Main(props) {
         </tbody>
       </table>
       <TablePagination
-        rowsPerPageOptions={[15, 20, 40, 80]}
+        rowsPerPageOptions={[10, 15, 20, 40, 80]}
         component="div"
         count={props.data.length}
         rowsPerPage={props.rowsPerPage}

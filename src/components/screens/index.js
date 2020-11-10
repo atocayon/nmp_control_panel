@@ -35,7 +35,7 @@ function Screens(props) {
   const [redirect, setRedirect] = useState({ location: "" });
 
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(15);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     const obj = getFromStorage("control-panel");
@@ -208,7 +208,14 @@ function Screens(props) {
 
       {props.match.params.route === "sections" && (
         <div className={"main"}>
-          <Sections />
+          <Sections
+            data={props._fetch_sections}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            input_change={props.input_change}
+          />
         </div>
       )}
 
