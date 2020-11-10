@@ -25,7 +25,8 @@ import { fetch_sections } from "../../redux/actions/fetch_sections";
 import { changePassword } from "../../redux/actions/changePassword";
 import { deleteUser } from "../../redux/actions/deleteUser";
 import { search } from "../../redux/actions/search";
-import {user_registration} from "../../redux/actions/user_registration";
+import { user_registration } from "../../redux/actions/user_registration";
+import { fetch_divisions } from "../../redux/actions/fetch_divisions";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
@@ -46,6 +47,7 @@ function Screens(props) {
       props.fetch_all_users();
       props.fetch_current_user(obj.token);
       props.fetch_sections();
+      props.fetch_divisions();
     }
 
     if (props._login.message !== "") {
@@ -193,7 +195,14 @@ function Screens(props) {
 
       {props.match.params.route === "divisions" && (
         <div className={"main"}>
-          <Divisions />
+          <Divisions
+            data={props._fetch_divisions}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            input_change={props.input_change}
+          />
         </div>
       )}
 
@@ -238,6 +247,7 @@ const mapStateToProps = (state) => {
     user_update_modal: state.user_update_modal,
     _fetch_sections: state.fetch_sections,
     _user_registration: state.user_registration,
+    _fetch_divisions: state.fetch_divisions,
   };
 };
 
@@ -254,7 +264,8 @@ const mapDispatchToProps = {
   changePassword,
   deleteUser,
   search,
-  user_registration
+  user_registration,
+  fetch_divisions,
 };
 
 export default connect(

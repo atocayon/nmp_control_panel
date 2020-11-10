@@ -35,17 +35,21 @@ export default function Main(props) {
           deleteUser={props.deleteUser}
         />
       )}
-
-      <div className={"form-group has-search"}>
-        <span className={"form-control-feedback"}>
-          <SearchIcon />
-        </span>
-        <input
-          type={"text"}
-          className={"form-control"}
-          placeholder={"Search Employee ID or Name"}
-          onChange={props.search}
-        />
+      <div className={"row"}>
+        <div className={"col-md-8"}></div>
+        <div className={"col-md-4"}>
+          <div className={"form-group has-search"}>
+            <span className={"form-control-feedback"}>
+              <SearchIcon />
+            </span>
+            <input
+              type={"text"}
+              className={"form-control"}
+              placeholder={"Search Employee ID or Name"}
+              onChange={props.search}
+            />
+          </div>
+        </div>
       </div>
 
       <div>
