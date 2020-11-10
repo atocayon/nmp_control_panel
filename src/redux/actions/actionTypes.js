@@ -14,5 +14,7 @@ export default {
   INPUT_CHANGE_USER: "INPUT_CHANGE_USER",
 
   SEARCH: "SEARCH",
-  SORT: "SORT"
+  SORT: "SORT",
+
+  USER_REG: "USER_REG"
 };

@@ -10,10 +10,6 @@ export default function App(props) {
     <div>
       <Switch>
         <Route path={"/cpanel/:route"} component={Screens} />
-        <Route path={"/cpanel/:route"} component={Screens} />
-        <Route path={"/cpanel/:route"} component={Screens} />
-        <Route path={"/cpanel/:route"} component={Screens} />
-        <Route path={"/cpanel/:route"} component={Screens} />
         <Route path={"/cpanel"} component={Screens} />
         <Route path={"/"} exact component={Redirection} />
         <Route component={NotFound} />

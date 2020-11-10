@@ -21,7 +21,11 @@ export default function SelectField(props) {
   const classes = useStyles();
 
   return (
-    <FormControl variant="outlined" className={classes.formControl}>
+    <FormControl
+      variant="outlined"
+      className={classes.formControl}
+      error={props.error}
+    >
       <InputLabel>{props.label}</InputLabel>
       <Select
         label={props.label}
@@ -30,7 +34,9 @@ export default function SelectField(props) {
         name={props.name}
         onChange={props.onChange}
       >
-        <MenuItem value={props.value !== null && props.value ? props.value : ""}>
+        <MenuItem
+          value={props.value !== null && props.value ? props.value : ""}
+        >
           <em>
             {props.value !== null &&
               props.value.charAt(0).toUpperCase() + props.value.slice(1)}

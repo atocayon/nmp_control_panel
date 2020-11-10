@@ -7,6 +7,8 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import BorderColor from "@material-ui/icons/BorderColor";
 import SearchIcon from "@material-ui/icons/Search";
+import { Link } from "react-router-dom";
+
 export default function Main(props) {
   let arr = [];
   for (let val of props.sections) {
@@ -45,6 +47,13 @@ export default function Main(props) {
           onChange={props.search}
         />
       </div>
+
+      <div>
+        <Link className={"btn btn-success"} to={"/cpanel/user_registration"}>
+          Add New User
+        </Link>
+      </div>
+      <br />
       <table className={"table table-striped table-hover"}>
         <thead>
           <tr>
@@ -59,6 +68,13 @@ export default function Main(props) {
           </tr>
         </thead>
         <tbody>
+          {props.data.length === 0 && (
+            <tr>
+              <td colSpan={8} style={{ textAlign: "center" }}>
+                No data found
+              </td>
+            </tr>
+          )}
           {props.data
             .slice(
               props.page * props.rowsPerPage,

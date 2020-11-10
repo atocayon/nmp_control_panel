@@ -9,6 +9,7 @@ import Sections from "../screens/Sections";
 import DocLogs from "../screens/DocLogs";
 import DocTypes from "../screens/DocTypes";
 import Main from "../screens/Main";
+import UserRegistration from "../screens/UserRegistration";
 import SideBar from "../common/SideBar";
 import { withSnackbar } from "notistack";
 import { connect } from "react-redux";
@@ -23,7 +24,8 @@ import { update_user_info } from "../../redux/actions/update_user_info";
 import { fetch_sections } from "../../redux/actions/fetch_sections";
 import { changePassword } from "../../redux/actions/changePassword";
 import { deleteUser } from "../../redux/actions/deleteUser";
-import {search} from "../../redux/actions/search";
+import { search } from "../../redux/actions/search";
+import {user_registration} from "../../redux/actions/user_registration";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
@@ -66,25 +68,40 @@ function Screens(props) {
       }
 
       if (typeof props._login.message === "object") {
-        setError({ ...error, usernameOrEmail: "", password: "" });
-        props.clear_message();
-        const variant = "info";
-        props.enqueueSnackbar(`Hi! ${props._login.message.name}...`, {
-          variant,
-        });
+        if (props._login.message.role.control_panel === "super_admin") {
+          setError({ ...error, usernameOrEmail: "", password: "" });
+          props.clear_message();
+          const variant = "info";
+          props.enqueueSnackbar(`Hi! ${props._login.message.name}...`, {
+            variant,
+          });
 
-        setRedirect({ ...redirect, location: "cpanel" });
+          setRedirect({ ...redirect, location: "cpanel" });
+        } else {
+          setError({
+            ...error,
+            usernameOrEmail: "Unknown",
+            password: "Unknown",
+          });
+        }
       }
     }
 
     if (props.user_update_modal.update) {
       props.clear_message();
     }
+
+    if (props._user_registration.message !== "") {
+      if (props._user_registration.message === "success") {
+        props.clear_message();
+      }
+    }
   }, [
     redirect,
     props.match.params,
     props._login.message,
     props.user_update_modal.update,
+    props._user_registration.message,
   ]);
 
   const onLogin = (e) => {
@@ -194,6 +211,17 @@ function Screens(props) {
           <DocTypes />
         </div>
       )}
+
+      {props.match.params.route === "user_registration" && (
+        <div className={"main"}>
+          <UserRegistration
+            sections={props._fetch_sections}
+            data={props._user_registration}
+            input_change={props.input_change}
+            handleRegistration={props.user_registration}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -205,6 +233,7 @@ const mapStateToProps = (state) => {
     _fetch_current_user: state.fetch_current_user,
     user_update_modal: state.user_update_modal,
     _fetch_sections: state.fetch_sections,
+    _user_registration: state.user_registration,
   };
 };
 
@@ -220,7 +249,8 @@ const mapDispatchToProps = {
   fetch_sections,
   changePassword,
   deleteUser,
-  search
+  search,
+  user_registration
 };
 
 export default connect(
