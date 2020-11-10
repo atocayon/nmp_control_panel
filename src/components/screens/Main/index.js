@@ -1,25 +1,50 @@
 // @flow
 import React from "react";
 import UpdateUserInforModal from "../../common/UpdateUserInfoModal";
+import ConfirmationModal from "../../common/ConfirmationModal";
 import TablePagination from "@material-ui/core/TablePagination";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import BorderColor from "@material-ui/icons/BorderColor";
+import SearchIcon from "@material-ui/icons/Search";
 export default function Main(props) {
   let arr = [];
-  for(let val of props.sections){
-    arr.push({id: val.secid, value: val.section});
+  for (let val of props.sections) {
+    arr.push({ id: val.secid, value: val.section });
   }
   return (
     <div className={"dashboard-container"}>
-    
-      <UpdateUserInforModal
-        data={props.openUpdateUserModal}
-        handleClose={props.handleCloseOpenUserUpdate}
-        input_change={props.input_change}
-        update_user_info={props.update_user_info}
-        sections={arr}
-      />
+      {props.openUpdateUserModal.modal === "Edit" && (
+        <UpdateUserInforModal
+          data={props.openUpdateUserModal}
+          handleClose={props.handleCloseOpenUserUpdate}
+          input_change={props.input_change}
+          update_user_info={props.update_user_info}
+          sections={arr}
+        />
+      )}
+
+      {props.openUpdateUserModal.modal !== "Edit" && (
+        <ConfirmationModal
+          data={props.openUpdateUserModal}
+          handleClose={props.handleCloseOpenUserUpdate}
+          input_change={props.input_change}
+          changePassword={props.changePassword}
+          deleteUser={props.deleteUser}
+        />
+      )}
+
+      <div className={"form-group has-search"}>
+        <span className={"form-control-feedback"}>
+          <SearchIcon />
+        </span>
+        <input
+          type={"text"}
+          className={"form-control"}
+          placeholder={"Search Employee ID or Name"}
+          onChange={props.search}
+        />
+      </div>
       <table className={"table table-striped table-hover"}>
         <thead>
           <tr>
@@ -71,21 +96,32 @@ export default function Main(props) {
                   <button
                     className={"btn btn-primary btn-sm"}
                     title={"Update password"}
+                    onClick={props.handleOpenUserUpdateModal.bind(null, {
+                      user_id: item.user_id,
+                      modal: "password",
+                    })}
                   >
                     <VpnKeyIcon />
                   </button>
                   &nbsp;&nbsp;
-                  <button className={"btn btn-sm btn-danger"} title={"Delete"}>
+                  <button
+                    className={"btn btn-sm btn-danger"}
+                    title={"Delete"}
+                    onClick={props.handleOpenUserUpdateModal.bind(null, {
+                      user_id: item.user_id,
+                      modal: "delete",
+                    })}
+                  >
                     <DeleteForeverIcon />
                   </button>
                   &nbsp;&nbsp;
                   <button
                     className={"btn btn-sm btn-warning"}
                     title={"Edit"}
-                    onClick={props.handleOpenUserUpdateModal.bind(
-                      null,
-                      item.user_id
-                    )}
+                    onClick={props.handleOpenUserUpdateModal.bind(null, {
+                      user_id: item.user_id,
+                      modal: "Edit",
+                    })}
                   >
                     <BorderColor />
                   </button>

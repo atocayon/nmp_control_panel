@@ -30,13 +30,13 @@ export default function SelectField(props) {
         name={props.name}
         onChange={props.onChange}
       >
-        <MenuItem value={props.value !== null ? props.value : ""}>
+        <MenuItem value={props.value !== null && props.value ? props.value : ""}>
           <em>
             {props.value !== null &&
               props.value.charAt(0).toUpperCase() + props.value.slice(1)}
           </em>
         </MenuItem>
-        {props.value !== null
+        {props.value !== null && props.value
           ? props.option
               .filter(
                 (item) =>

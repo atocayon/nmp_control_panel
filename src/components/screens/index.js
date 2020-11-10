@@ -21,6 +21,9 @@ import { handleOnClickEditUser } from "../../redux/actions/handleOnClickEditUser
 import { handleCloseModal } from "../../redux/actions/handleCloseModal";
 import { update_user_info } from "../../redux/actions/update_user_info";
 import { fetch_sections } from "../../redux/actions/fetch_sections";
+import { changePassword } from "../../redux/actions/changePassword";
+import { deleteUser } from "../../redux/actions/deleteUser";
+import {search} from "../../redux/actions/search";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
@@ -149,6 +152,9 @@ function Screens(props) {
             input_change={props.input_change}
             update_user_info={props.update_user_info}
             sections={props._fetch_sections}
+            changePassword={props.changePassword}
+            deleteUser={props.deleteUser}
+            search={props.search}
           />
         </div>
       ) : null}
@@ -212,6 +218,9 @@ const mapDispatchToProps = {
   handleCloseModal,
   update_user_info,
   fetch_sections,
+  changePassword,
+  deleteUser,
+  search
 };
 
 export default connect(

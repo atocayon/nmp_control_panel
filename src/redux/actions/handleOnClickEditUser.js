@@ -1,13 +1,18 @@
 import actionTypes from "./actionTypes";
 import axios from "axios";
-const handleOnClickEditUser = (user_id) => {
+const handleOnClickEditUser = ({user_id, modal}) => {
   return (dispatch) => {
     return axios
       .get(`http://${process.env.REACT_APP_SERVER}/user/${user_id}`)
-      .then(res => {
-        dispatch({ type: actionTypes.EDIT, data: res.data });
+      .then((res) => {
+        dispatch({
+          type: actionTypes.EDIT,
+          data: { modal: modal, data: res.data },
+        });
       })
-      .catch(err => {throw err});
+      .catch((err) => {
+        throw err;
+      });
     // return dispatch({ type: actionTypes.EDIT, data });
   };
 };
