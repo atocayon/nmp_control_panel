@@ -93,6 +93,10 @@ function Screens(props) {
 
     if (props._user_registration.message !== "") {
       if (props._user_registration.message === "success") {
+        const variant = "success";
+        props.enqueueSnackbar(`Registration Success!`, {
+          variant,
+        });
         props.clear_message();
       }
     }

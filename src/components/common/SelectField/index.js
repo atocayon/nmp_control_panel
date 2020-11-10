@@ -38,8 +38,9 @@ export default function SelectField(props) {
           value={props.value !== null && props.value ? props.value : ""}
         >
           <em>
-            {props.value !== null &&
-              props.value.charAt(0).toUpperCase() + props.value.slice(1)}
+            {props.value !== null && props.value
+              ? props.value.charAt(0).toUpperCase() + props.value.slice(1)
+              : ""}
           </em>
         </MenuItem>
         {props.value !== null && props.value

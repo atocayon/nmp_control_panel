@@ -12,11 +12,11 @@ export default function UserRegistration(props) {
     let _err = {};
     if (!props.data.employeeId) _err.employeeId = "Employee ID Required";
     if (!props.data.name) _err.name = "Name Required";
-    if(!props.data.username) _err.username = "Username Required";
+    if (!props.data.username) _err.username = "Username Required";
     if (!props.data.password) _err.password = "Password Required";
     if (!props.data.cPassword) _err.cPassword = "Confirm Password Required";
-    if(!props.data.contact) _err.contact = "Contact Required";
-    if(!props.data.email) _err.email = "Email Required";
+    if (!props.data.contact) _err.contact = "Contact Required";
+    if (!props.data.email) _err.email = "Email Required";
     if (!props.data.section) _err.section = "Section Required";
     if (!props.data.position) _err.position = "Position Required";
 
@@ -107,7 +107,7 @@ export default function UserRegistration(props) {
                   <SelectField
                     name={"section"}
                     label={"Section"}
-                    value={props.data.section || ""}
+                    // value={props.data.section || ""}
                     option={arr}
                     onChange={props.input_change}
                     error={err.section}
@@ -122,6 +122,38 @@ export default function UserRegistration(props) {
                 value={props.data.name || ""}
                 onChange={props.input_change}
                 error={err.name}
+              />
+              <br />
+              <br />
+              <InputField
+                name={"username"}
+                variant={"outlined"}
+                label={"Username"}
+                value={props.data.username || ""}
+                onChange={props.input_change}
+                error={err.username}
+              />
+              <br />
+              <br />
+              <InputField
+                type={"password"}
+                name={"password"}
+                variant={"outlined"}
+                label={"Password"}
+                value={props.data.password || ""}
+                onChange={props.input_change}
+                error={err.password}
+              />
+              <br />
+              <br />
+              <InputField
+              type={"password"}
+                name={"cPassword"}
+                variant={"outlined"}
+                label={"Confirm Password"}
+                value={props.data.cPassword || ""}
+                onChange={props.input_change}
+                error={err.cPassword}
               />
               <br />
               <br />
