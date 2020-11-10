@@ -20,7 +20,7 @@ import { fetch_current_user } from "../../redux/actions/fetch_current_user";
 import { handleOnClickEditUser } from "../../redux/actions/handleOnClickEditUser";
 import { handleCloseModal } from "../../redux/actions/handleCloseModal";
 import { update_user_info } from "../../redux/actions/update_user_info";
-
+import { fetch_sections } from "../../redux/actions/fetch_sections";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
@@ -40,6 +40,7 @@ function Screens(props) {
     if (obj && obj.token) {
       props.fetch_all_users();
       props.fetch_current_user(obj.token);
+      props.fetch_sections();
     }
 
     if (props._login.message !== "") {
@@ -147,6 +148,7 @@ function Screens(props) {
             handleChangeRowsPerPage={handleChangeRowsPerPage}
             input_change={props.input_change}
             update_user_info={props.update_user_info}
+            sections={props._fetch_sections}
           />
         </div>
       ) : null}
@@ -196,6 +198,7 @@ const mapStateToProps = (state) => {
     _fetch_all_users: state.fetch_all_users,
     _fetch_current_user: state.fetch_current_user,
     user_update_modal: state.user_update_modal,
+    _fetch_sections: state.fetch_sections,
   };
 };
 
@@ -208,6 +211,7 @@ const mapDispatchToProps = {
   handleOnClickEditUser,
   handleCloseModal,
   update_user_info,
+  fetch_sections,
 };
 
 export default connect(

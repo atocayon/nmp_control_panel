@@ -6,17 +6,19 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import BorderColor from "@material-ui/icons/BorderColor";
 export default function Main(props) {
+  let arr = [];
+  for(let val of props.sections){
+    arr.push({id: val.secid, value: val.section});
+  }
   return (
     <div className={"dashboard-container"}>
-      {/* <div className={"row"}>
-        <div className={"col-md-1"}></div>
-        <div className={"col-md-10"}> */}
-
+    
       <UpdateUserInforModal
         data={props.openUpdateUserModal}
         handleClose={props.handleCloseOpenUserUpdate}
         input_change={props.input_change}
         update_user_info={props.update_user_info}
+        sections={arr}
       />
       <table className={"table table-striped table-hover"}>
         <thead>
@@ -39,96 +41,19 @@ export default function Main(props) {
             )
             .map((item) => (
               <tr>
+                <td>{item.employeeId}</td>
+                <td>{item.name}</td>
+                <td>{item.secshort}</td>
+                <td>{item.position}</td>
                 <td>
-                  {/* <button
-                    className={"btn btn-sm"}
-                    onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      id: item.user_id,
-                      title: "Employee ID",
-                      value: item.employeeId,
-                      name: "employeeId",
-                    })}
-                  > */}
-                    {item.employeeId}
-                  {/* </button>{" "} */}
+                  {item.dts_role === null || item.dts_role === ""
+                    ? "N/A"
+                    : item.dts_role}
                 </td>
                 <td>
-                  {/* <button
-                    className={"btn btn-sm"}
-                    onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      id: item.user_id,
-                      title: "Name",
-                      value: item.name,
-                      name: "name",
-                    })}
-                  > */}
-                    {item.name}
-                  {/* </button> */}
-                </td>
-                <td>
-                  {/* <button
-                    className={"btn btn-sm"}
-                    onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      id: item.user_id,
-                      title: "Section",
-                      value: item.secshort,
-                      name: "secshort",
-                    })}
-                  > */}
-                    {item.secshort}
-                  {/* </button>{" "} */}
-                </td>
-                <td>
-                  {" "}
-                  {/* <button
-                    className={"btn btn-sm"}
-                    onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      id: item.user_id,
-                      title: "Position",
-                      value: item.position,
-                      name: "position",
-                    })}
-                  > */}
-                    {item.position}
-                  {/* </button> */}
-                </td>
-                <td>
-                  {/* <button
-                    className={"btn btn-sm"}
-                    onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      id: item.user_id,
-                      title: "DTS Role",
-                      value:
-                        item.dts_role === null || item.dts_role === ""
-                          ? "Set Role"
-                          : item.dts_role,
-                      name: "dts_role",
-                    })}
-                  > */}
-                    {item.dts_role === null || item.dts_role === ""
-                      ? "N/A"
-                      : item.dts_role}
-                  {/* </button>{" "} */}
-                </td>
-                <td>
-                  {/* <button
-                    className={"btn btn-sm"}
-                    onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      id: item.user_id,
-                      title: "Work Queue Role",
-                      value:
-                        item.work_queue_role === null ||
-                        item.work_queue_role === ""
-                          ? "Set Role"
-                          : item.work_queue_role,
-                      name: "work_queue_role",
-                    })}
-                  > */}
-                    {item.work_queue_role === null ||
-                    item.work_queue_role === ""
-                      ? "N/A"
-                      : item.work_queue_role}
-                  {/* </button> */}
+                  {item.work_queue_role === null || item.work_queue_role === ""
+                    ? "N/A"
+                    : item.work_queue_role}
                 </td>
                 <td>
                   <select className={"form-control"}>
@@ -150,14 +75,18 @@ export default function Main(props) {
                     <VpnKeyIcon />
                   </button>
                   &nbsp;&nbsp;
-                  <button
-                    className={"btn btn-sm btn-danger"}
-                    title={"Delete"}
-                  >
+                  <button className={"btn btn-sm btn-danger"} title={"Delete"}>
                     <DeleteForeverIcon />
                   </button>
                   &nbsp;&nbsp;
-                  <button className={"btn btn-sm btn-warning"} title={"Edit"}>
+                  <button
+                    className={"btn btn-sm btn-warning"}
+                    title={"Edit"}
+                    onClick={props.handleOpenUserUpdateModal.bind(
+                      null,
+                      item.user_id
+                    )}
+                  >
                     <BorderColor />
                   </button>
                 </td>
