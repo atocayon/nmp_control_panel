@@ -27,6 +27,7 @@ import { deleteUser } from "../../redux/actions/deleteUser";
 import { search } from "../../redux/actions/search";
 import { user_registration } from "../../redux/actions/user_registration";
 import { fetch_divisions } from "../../redux/actions/fetch_divisions";
+import { fetch_doc_types } from "../../redux/actions/fetch_doc_types";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
@@ -48,6 +49,7 @@ function Screens(props) {
       props.fetch_current_user(obj.token);
       props.fetch_sections();
       props.fetch_divisions();
+      props.fetch_doc_types();
     }
 
     if (props._login.message !== "") {
@@ -228,7 +230,14 @@ function Screens(props) {
 
       {props.match.params.route === "docTypes" && (
         <div className={"main"}>
-          <DocTypes />
+          <DocTypes
+            data={props._fetch_doc_types}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            input_change={props.input_change}
+          />
         </div>
       )}
 
@@ -255,6 +264,7 @@ const mapStateToProps = (state) => {
     _fetch_sections: state.fetch_sections,
     _user_registration: state.user_registration,
     _fetch_divisions: state.fetch_divisions,
+    _fetch_doc_types: state.fetch_doc_types,
   };
 };
 
@@ -273,6 +283,7 @@ const mapDispatchToProps = {
   search,
   user_registration,
   fetch_divisions,
+  fetch_doc_types,
 };
 
 export default connect(
