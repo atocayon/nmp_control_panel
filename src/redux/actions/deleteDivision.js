@@ -4,9 +4,11 @@ import axios from "axios";
 const deleteDivision = ({ depid }) => {
   return (dispatch) => {
     return axios
-      .post(`http://${process.env.REACT_APP_SERVER}/division/delete`, { depid })
+      .post(`http://${process.env.REACT_APP_SERVER}/division/delete`, {
+        depid,
+      })
       .then((res) => {
-        dispatch({ types: actionTypes.UPDATE });
+        dispatch({ type: actionTypes.UPDATE });
       })
       .catch((err) => {
         throw err;

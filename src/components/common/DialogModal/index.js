@@ -72,14 +72,14 @@ export default function DialogModal(props) {
                 props.data.type === "edit" &&
                 props.data.from === "division"
               ) {
-                props.update_division(props.data.data);
+                return props.update_division(props.data.data);
               }
 
               if (
                 props.data.type === "delete" &&
                 props.data.from === "division"
               ) {
-                props.deleteDivision(props.data.data);
+                return props.deleteDivision(props.data.data);
               }
             }}
             color="primary"

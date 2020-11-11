@@ -34,7 +34,9 @@ export default function Divisions(props) {
       </div>
 
       <div>
-        <Link className={"btn btn-success"}>Add New Division</Link>
+        <Link className={"btn btn-success"} to={"/cpanel/new_division"}>
+          Add New Division
+        </Link>
       </div>
 
       <div>

@@ -41,16 +41,21 @@ export default function UserRegistration(props) {
     }
   };
   return (
-    <div style={{ marginBottom: "10vh" }}>
+    <div style={{ marginBottom: "10vh", marginTop: "10vh" }}>
       <form onSubmit={onSubmit}>
         <div className={"container"}>
           <div className={"row"}>
-            <div className={"col-md-12"}>
-              <div className={"jumbotron"}>
-                <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
-                  User Registration Form
-                </h2>
-              </div>
+            <div className={"col-md-3"}></div>
+            <div className={"col-md-6"}>
+              <h2
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  marginBottom: "10vh",
+                }}
+              >
+                User Registration Form
+              </h2>
 
               <div className={"row"}>
                 <div className={"col-md-4"}>
@@ -147,7 +152,7 @@ export default function UserRegistration(props) {
               <br />
               <br />
               <InputField
-              type={"password"}
+                type={"password"}
                 name={"cPassword"}
                 variant={"outlined"}
                 label={"Confirm Password"}
@@ -201,12 +206,13 @@ export default function UserRegistration(props) {
               <br />
               <button
                 type={"submit"}
-                className={"btn btn-success"}
+                className={"btn btn-primary"}
                 style={{ width: "100%", padding: "1vw" }}
               >
                 Save
               </button>
             </div>
+            <div className={"col-md-3"}></div>
           </div>
         </div>
       </form>

@@ -10,6 +10,7 @@ import DocLogs from "../screens/DocLogs";
 import DocTypes from "../screens/DocTypes";
 import Main from "../screens/Main";
 import UserRegistration from "../screens/UserRegistration";
+import NewDivision from "../screens/NewDivision";
 import SideBar from "../common/SideBar";
 import { withSnackbar } from "notistack";
 import { connect } from "react-redux";
@@ -31,6 +32,7 @@ import { fetch_doc_types } from "../../redux/actions/fetch_doc_types";
 import { handleDialogModal } from "../../redux/actions/handleDialogModal";
 import { update_division } from "../../redux/actions/update_division";
 import { deleteDivision } from "../../redux/actions/deleteDivision";
+import { new_division } from "../../redux/actions/new_division";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
@@ -117,6 +119,16 @@ function Screens(props) {
         props.clear_message();
       }
     }
+
+    if (props._new_division.message !== "") {
+      if (props._new_division.message === "success") {
+        const variant = "success";
+        props.enqueueSnackbar(`Added Success!`, {
+          variant,
+        });
+        props.clear_message();
+      }
+    }
   }, [
     redirect,
     props.match.params,
@@ -124,6 +136,7 @@ function Screens(props) {
     props.user_update_modal.update,
     props._user_registration.message,
     props._division_modal.message,
+    props._new_division.message,
   ]);
 
   const onLogin = (e) => {
@@ -270,6 +283,16 @@ function Screens(props) {
           />
         </div>
       )}
+
+      {props.match.params.route === "new_division" && (
+        <div className={"main"}>
+          <NewDivision
+            input_change={props.input_change}
+            _new_division={props._new_division}
+            new_division={props.new_division}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -285,6 +308,7 @@ const mapStateToProps = (state) => {
     _fetch_divisions: state.fetch_divisions,
     _fetch_doc_types: state.fetch_doc_types,
     _division_modal: state.division_modal,
+    _new_division: state.new_division,
   };
 };
 
@@ -307,6 +331,7 @@ const mapDispatchToProps = {
   handleDialogModal,
   update_division,
   deleteDivision,
+  new_division,
 };
 
 export default connect(
