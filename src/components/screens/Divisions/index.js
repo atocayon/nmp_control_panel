@@ -5,9 +5,15 @@ import { Link } from "react-router-dom";
 import TablePagination from "@material-ui/core/TablePagination";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import BorderColor from "@material-ui/icons/BorderColor";
+import DialogModal from "../../common/DialogModal";
 export default function Divisions(props) {
   return (
     <div>
+      <DialogModal
+        data={props.modal}
+        handleDialogModal={props.handleDialogModal}
+        input_change={props.input_change}
+      />
       <div className={"row"}>
         <div className={"col-md-8"}></div>
         <div className={"col-md-4"}>
@@ -53,10 +59,11 @@ export default function Divisions(props) {
                     <button
                       className={"btn btn-sm btn-danger"}
                       title={"Delete"}
-                      // onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      //   user_id: item.user_id,
-                      //   modal: "delete",
-                      // })}
+                      onClick={props.handleDialogModal.bind(null, {
+                        route: "division", //API Route
+                        id: item.depid,
+                        type: "delete",
+                      })}
                     >
                       <DeleteForeverIcon />
                     </button>
@@ -64,10 +71,11 @@ export default function Divisions(props) {
                     <button
                       className={"btn btn-sm btn-warning"}
                       title={"Edit"}
-                      // onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      //   user_id: item.user_id,
-                      //   modal: "Edit",
-                      // })}
+                      onClick={props.handleDialogModal.bind(null, {
+                        route: "division", //API Route
+                        id: item.depid,
+                        type: "edit",
+                      })}
                     >
                       <BorderColor />
                     </button>

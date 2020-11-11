@@ -19,4 +19,6 @@ export default {
   SORT: "SORT",
 
   USER_REG: "USER_REG",
+
+  HANDLE_DIALOG_MODAL: "HANDLE_DIALOG_MODAL"
 };
