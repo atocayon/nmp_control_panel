@@ -13,6 +13,7 @@ export default function Divisions(props) {
         data={props.modal}
         handleDialogModal={props.handleDialogModal}
         input_change={props.input_change}
+        update_division={props.update_division}
       />
       <div className={"row"}>
         <div className={"col-md-8"}></div>
@@ -46,6 +47,13 @@ export default function Divisions(props) {
             </tr>
           </thead>
           <tbody>
+            {props.data.length === 0 && (
+              <tr>
+                <td colSpan={3} style={{ textAlign: "center" }}>
+                  No data found
+                </td>
+              </tr>
+            )}
             {props.data
               .slice(
                 props.page * props.rowsPerPage,

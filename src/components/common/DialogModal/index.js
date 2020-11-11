@@ -58,7 +58,15 @@ export default function DialogModal(props) {
             Cancel
           </Button>
           <Button
-            onClick={props.handleDialogModal.bind(null, { id: "" })}
+            onClick={(e) => {
+              e.preventDefault();
+              if (
+                props.data.type === "edit" &&
+                props.data.from === "division"
+              ) {
+                props.update_division(props.data.data);
+              }
+            }}
             color="primary"
           >
             Ok

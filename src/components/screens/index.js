@@ -28,7 +28,8 @@ import { search } from "../../redux/actions/search";
 import { user_registration } from "../../redux/actions/user_registration";
 import { fetch_divisions } from "../../redux/actions/fetch_divisions";
 import { fetch_doc_types } from "../../redux/actions/fetch_doc_types";
-import {handleDialogModal} from "../../redux/actions/handleDialogModal";
+import { handleDialogModal } from "../../redux/actions/handleDialogModal";
+import {update_division} from "../../redux/actions/update_division";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
@@ -105,12 +106,23 @@ function Screens(props) {
         props.clear_message();
       }
     }
+
+    if (props._division_modal.message !== "") {
+      if (props._division_modal.message === "success") {
+        const variant = "success";
+        props.enqueueSnackbar(`Edit Success!`, {
+          variant,
+        });
+        props.clear_message();
+      }
+    }
   }, [
     redirect,
     props.match.params,
     props._login.message,
     props.user_update_modal.update,
     props._user_registration.message,
+    props._division_modal.message,
   ]);
 
   const onLogin = (e) => {
@@ -207,6 +219,8 @@ function Screens(props) {
             input_change={props.input_change}
             modal={props._division_modal}
             handleDialogModal={props.handleDialogModal}
+            search={props.search}
+            update_division={props.update_division}
           />
         </div>
       )}
@@ -268,7 +282,7 @@ const mapStateToProps = (state) => {
     _user_registration: state.user_registration,
     _fetch_divisions: state.fetch_divisions,
     _fetch_doc_types: state.fetch_doc_types,
-    _division_modal: state.division_modal
+    _division_modal: state.division_modal,
   };
 };
 
@@ -288,7 +302,8 @@ const mapDispatchToProps = {
   user_registration,
   fetch_divisions,
   fetch_doc_types,
-  handleDialogModal
+  handleDialogModal,
+  update_division
 };
 
 export default connect(

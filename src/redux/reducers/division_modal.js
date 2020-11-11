@@ -22,6 +22,20 @@ const division_modal = (
       return Object.assign({}, state, {
         data: { ...state.data, [action.data.name]: action.data.value },
       });
+
+    case actionTypes.UPDATE:
+      return Object.assign({}, state, {
+        message: "success",
+      });
+
+    case actionTypes.CLEAR_MESSAGE:
+      return Object.assign({}, state, {
+        open: false,
+        type: "",
+        from: "",
+        data: {},
+        message: "",
+      });
     default:
       return state;
   }
