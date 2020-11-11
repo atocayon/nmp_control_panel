@@ -14,6 +14,7 @@ export default function Divisions(props) {
         handleDialogModal={props.handleDialogModal}
         input_change={props.input_change}
         update_division={props.update_division}
+        deleteDivision={props.deleteDivision}
       />
       <div className={"row"}>
         <div className={"col-md-8"}></div>

@@ -29,7 +29,8 @@ import { user_registration } from "../../redux/actions/user_registration";
 import { fetch_divisions } from "../../redux/actions/fetch_divisions";
 import { fetch_doc_types } from "../../redux/actions/fetch_doc_types";
 import { handleDialogModal } from "../../redux/actions/handleDialogModal";
-import {update_division} from "../../redux/actions/update_division";
+import { update_division } from "../../redux/actions/update_division";
+import { deleteDivision } from "../../redux/actions/deleteDivision";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
@@ -221,6 +222,7 @@ function Screens(props) {
             handleDialogModal={props.handleDialogModal}
             search={props.search}
             update_division={props.update_division}
+            deleteDivision={props.deleteDivision}
           />
         </div>
       )}
@@ -303,7 +305,8 @@ const mapDispatchToProps = {
   fetch_divisions,
   fetch_doc_types,
   handleDialogModal,
-  update_division
+  update_division,
+  deleteDivision,
 };
 
 export default connect(

@@ -11,6 +11,10 @@ import EditDivision from "./EditDivision";
 import EditSection from "./EditSection";
 import EditDocType from "./EditDocType";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import DeleteDivision from "./DeleteDivision";
+import DeleteDocType from "./DeleteDocType";
+import DeleteSection from "./DeleteSection";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -48,6 +52,10 @@ export default function DialogModal(props) {
                 {props.data.from === "docType" && <EditDocType />}
               </>
             )}
+
+            {props.data.type === "delete" && (
+              <>{props.data.from === "division" && <DeleteDivision />}</>
+            )}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -65,6 +73,13 @@ export default function DialogModal(props) {
                 props.data.from === "division"
               ) {
                 props.update_division(props.data.data);
+              }
+
+              if (
+                props.data.type === "delete" &&
+                props.data.from === "division"
+              ) {
+                props.deleteDivision(props.data.data);
               }
             }}
             color="primary"
