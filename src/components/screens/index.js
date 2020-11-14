@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import { clear_message } from "../../redux/actions/clear_message";
 import { input_change } from "../../redux/actions/input_change";
 import { login } from "../../redux/actions/login_logout";
+import { logout } from "../../redux/actions/login_logout";
 import { fetch_all_users } from "../../redux/actions/fetch_all_users";
 import { fetch_current_user } from "../../redux/actions/fetch_current_user";
 import { handleOnClickEditUser } from "../../redux/actions/handleOnClickEditUser";
@@ -161,6 +162,10 @@ function Screens(props) {
         props.clear_message();
       }
     }
+
+    if (props._logout !== "") {
+      props.clear_message();
+    }
   }, [
     redirect,
     props.match.params,
@@ -171,6 +176,7 @@ function Screens(props) {
     props._new_division.message,
     props._new_section.message,
     props._new_docType.message,
+    props._logout,
   ]);
 
   const onLogin = (e) => {
@@ -240,7 +246,7 @@ function Screens(props) {
       )}
 
       {props.match.params.route !== "login" && (
-        <SideBar user={props._fetch_current_user} />
+        <SideBar user={props._fetch_current_user} logout={props.logout} />
       )}
 
       {Object.keys(props.match.params).length === 0 &&
@@ -432,11 +438,13 @@ const mapStateToProps = (state) => {
     _new_docType: state.new_docType,
     _fetch_doc_logs: state.fetch_doc_logs,
     _fetch_work_logs: state.fetch_work_logs,
+    _logout: state.logout,
   };
 };
 
 const mapDispatchToProps = {
   login,
+  logout,
   input_change,
   clear_message,
   fetch_all_users,

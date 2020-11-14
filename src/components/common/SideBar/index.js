@@ -105,15 +105,15 @@ export default function SideBar(props) {
           &nbsp;Work Queue Logs
         </NavLink>
 
-        <NavLink
-          activeStyle={activeStyle}
-          to={"/cpanel/logout"}
-          exact
-          className={"navLink"}
+        <button
+          onClick={() => {
+            props.logout(props.user);
+          }}
+          className={"btn btn-lg navLink"}
         >
           <PowerSettingsNewIcon />
           &nbsp;Logout, {props.user.name}
-        </NavLink>
+        </button>
       </div>
     </div>
   );
