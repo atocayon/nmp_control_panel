@@ -41,17 +41,23 @@ import { new_section } from "../../redux/actions/new_section";
 import { update_docType } from "../../redux/actions/update_docType";
 import { deleteDocType } from "../../redux/actions/deleteDocType";
 import { new_docType } from "../../redux/actions/new_docType";
+import { fetch_doc_logs } from "../../redux/actions/fetch_doc_logs";
+import io from "socket.io-client";
+let socket;
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
   const [inputType, setInputType] = useState(false);
   const [error, setError] = useState({});
   const [redirect, setRedirect] = useState({ location: "" });
+  const [expand, setExpand] = useState({});
+  const [activeStep, setActiveStep] = useState(0);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
+    socket = io(process.env.REACT_APP_SERVER);
     const obj = getFromStorage("control-panel");
     setLoading(false);
     setEndSession(!(obj && obj.token));
@@ -63,6 +69,7 @@ function Screens(props) {
       props.fetch_sections();
       props.fetch_divisions();
       props.fetch_doc_types();
+      props.fetch_doc_logs(socket);
     }
 
     if (props._login.message !== "") {
@@ -201,6 +208,26 @@ function Screens(props) {
     setPage(0);
   };
 
+  const handleExpand = (val) => {
+    if (expand[val]) {
+      setExpand({ ...expand, [val]: !expand[val] });
+    } else {
+      setExpand({ ...expand, [val]: true });
+    }
+  };
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
   return (
     <div>
       {loading && <CircularProgress />}
@@ -286,7 +313,20 @@ function Screens(props) {
       {props.match.params.route === "docLogs" && (
         <div className={"main"}>
           {" "}
-          <DocLogs />
+          <DocLogs
+            data={props._fetch_doc_logs}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            search={props.search}
+            handleExpand={handleExpand}
+            expand={expand}
+            activeStep={activeStep}
+            handleNext={handleNext}
+            handleBack={handleBack}
+            handleReset={handleReset}
+          />
         </div>
       )}
 
@@ -368,6 +408,7 @@ const mapStateToProps = (state) => {
     _new_division: state.new_division,
     _new_section: state.new_section,
     _new_docType: state.new_docType,
+    _fetch_doc_logs: state.fetch_doc_logs,
   };
 };
 
@@ -397,6 +438,7 @@ const mapDispatchToProps = {
   update_docType,
   deleteDocType,
   new_docType,
+  fetch_doc_logs,
 };
 
 export default connect(
