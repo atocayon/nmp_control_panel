@@ -1,52 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Turret+Road:wght@200&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Turret+Road:wght@200&display=swap");
 @import "login";
 @import "sidenav";
 @import "dashboard";
-body{
-    padding: 0;
-    margin: 0;
+body {
+  padding: 0;
+  margin: 0;
 }
 
 .loading {
-    h5 {
-      margin-top: 30vh;
-      text-align: center;
-    }
-  }
-
-  .logoOnNotFound {
-    margin-top: 12vh;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .notFoundPage {
+  h5 {
+    margin-top: 30vh;
     text-align: center;
-    color: #607d8b;
   }
+}
 
-  .main {
-    margin-left: 15vw; /* Same as the width of the sidenav */
-    padding: 0px 10px;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
+.logoOnNotFound {
+  margin-top: 12vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  .has-search .form-control {
-    padding-left: 2.375rem;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
+.notFoundPage {
+  text-align: center;
+  color: #607d8b;
+}
+
+.main {
+  margin-left: 15vw; /* Same as the width of the sidenav */
+  padding: 0px 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
 }
 
 .has-search .form-control-feedback {
-    position: absolute;
-    z-index: 2;
-    display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height: 2.375rem;
-    text-align: center;
-    pointer-events: none;
-    color: #aaa;
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
 }
