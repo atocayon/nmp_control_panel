@@ -43,7 +43,6 @@ export default function SideBar(props) {
             className={classes.large}
             title={props.user.name}
           />
-         
         </div>
 
         <NavLink
@@ -94,6 +93,16 @@ export default function SideBar(props) {
         >
           <InsertChartIcon />
           &nbsp;Document Logs
+        </NavLink>
+
+        <NavLink
+          activeStyle={activeStyle}
+          to={"/cpanel/workLogs"}
+          exact
+          className={"navLink"}
+        >
+          <InsertChartIcon />
+          &nbsp;Work Queue Logs
         </NavLink>
 
         <NavLink

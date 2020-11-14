@@ -1,11 +1,10 @@
-// @flow
 import React from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import TablePagination from "@material-ui/core/TablePagination";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Logs from "./Logs";
-export default function DocLogs(props) {
+export default function WorkLogs(props) {
   return (
     <div>
       <div className={"row"}>
@@ -18,13 +17,12 @@ export default function DocLogs(props) {
             <input
               type={"text"}
               className={"form-control"}
-              placeholder={"Search Tracking No/Subject/Creator/Type"}
+              placeholder={"Search Task No/Requisitioner/Inspector/Section"}
               onChange={props.search}
             />
           </div>
         </div>
       </div>
-
       <br />
       <br />
       <div>
@@ -32,21 +30,24 @@ export default function DocLogs(props) {
           <thead>
             <tr>
               {[
-                "Tracking #",
-                "Creator",
-                "Subject",
-                "Type",
-                "Note",
-                "Date/Time Created",
+                "Task No.",
+                "Requisitioner",
+                "Inspector",
+                "Scope of Work",
+                "Section",
+                "Deadline",
+                "Start",
+                "End",
+                "Date Created",
               ].map((item) => (
-                <th>{item}</th>
+                <th key={item}>{item}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {props.data.length === 0 && (
               <tr>
-                <td colSpan={6} style={{ textAlign: "center" }}>
+                <td colSpan={9} style={{ textAlign: "center" }}>
                   No Data Found
                 </td>
               </tr>
@@ -58,33 +59,36 @@ export default function DocLogs(props) {
                 props.page * props.rowsPerPage + props.rowsPerPage
               )
               .map((item) => (
-                <React.Fragment key={item.document.documentID}>
+                <React.Fragment key={item.work.task_id}>
                   <tr>
                     <td>
                       <button
                         className={"btn btn-sm"}
                         onClick={props.handleExpand.bind(
                           null,
-                          item.document.documentID
+                          item.work.task_id
                         )}
                       >
-                        {props.expand[item.document.documentID] ? (
+                        {props.expand[item.work.task_id] ? (
                           <ExpandLessIcon />
                         ) : (
                           <ExpandMoreIcon />
                         )}
                       </button>
-                      {item.document.documentID}
+                      {item.work.task_id}
                     </td>
-                    <td>{item.document.creator}</td>
-                    <td>{item.document.subject}</td>
-                    <td>{item.document.doc_type}</td>
-                    <td>{item.document.note}</td>
-                    <td>{item.document.date_time_created}</td>
+                    <td>{item.work.requisitioner}</td>
+                    <td>{item.work.inspector || "N/A"}</td>
+                    <td>{item.work.scope_of_work}</td>
+                    <td>{item.work.secshort}</td>
+                    <td>{item.work.deadline}</td>
+                    <td>{item.work.start || "N/A"}</td>
+                    <td>{item.work.end || "N/A"}</td>
+                    <td>{item.work.date_created}</td>
                   </tr>
-                  {props.expand[item.document.documentID] && (
+                  {props.expand[item.work.task_id] && (
                     <tr>
-                      <td colSpan={6}>
+                      <td colSpan={9}>
                         <Logs
                           steps={item.logs}
                           activeStep={props.activeStep}

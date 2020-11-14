@@ -12,6 +12,7 @@ import new_division from "./new_division";
 import new_section from "./new_section";
 import new_docType from "./new_docType";
 import fetch_doc_logs from "./fetch_doc_logs";
+import fetch_work_logs from "./fetch_work_logs";
 const rootReducer = combineReducers({
   login,
   fetch_all_users,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   new_section,
   new_docType,
   fetch_doc_logs,
+  fetch_work_logs,
 });
 
 export default rootReducer;

@@ -9,7 +9,7 @@ const fetch_doc_logs = (socket) => {
         arr.push({ document: i, logs: await logs(i.documentID) });
       }
 
-      dispatch({ type: actionTypes.FETCH_DOC_LOGS, data: arr });
+      dispatch({ type: actionTypes.FETCH_DOC_LOGS, data: [...arr] });
     });
   };
 };

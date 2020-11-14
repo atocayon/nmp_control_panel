@@ -13,6 +13,7 @@ import UserRegistration from "../screens/UserRegistration";
 import NewDivision from "../screens/NewDivision";
 import NewSection from "../screens/NewSection";
 import NewDocType from "../screens/NewDocType";
+import WorkLogs from "../screens/WorkLogs";
 import SideBar from "../common/SideBar";
 import { withSnackbar } from "notistack";
 import { connect } from "react-redux";
@@ -42,6 +43,7 @@ import { update_docType } from "../../redux/actions/update_docType";
 import { deleteDocType } from "../../redux/actions/deleteDocType";
 import { new_docType } from "../../redux/actions/new_docType";
 import { fetch_doc_logs } from "../../redux/actions/fetch_doc_logs";
+import { fetch_work_logs } from "../../redux/actions/fetch_work_logs";
 import io from "socket.io-client";
 let socket;
 function Screens(props) {
@@ -70,6 +72,7 @@ function Screens(props) {
       props.fetch_divisions();
       props.fetch_doc_types();
       props.fetch_doc_logs(socket);
+      props.fetch_work_logs(socket);
     }
 
     if (props._login.message !== "") {
@@ -359,6 +362,25 @@ function Screens(props) {
         </div>
       )}
 
+      {props.match.params.route === "workLogs" && (
+        <div className={"main"}>
+          <WorkLogs
+            data={props._fetch_work_logs}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+            search={props.search}
+            handleExpand={handleExpand}
+            expand={expand}
+            activeStep={activeStep}
+            handleNext={handleNext}
+            handleBack={handleBack}
+            handleReset={handleReset}
+          />
+        </div>
+      )}
+
       {props.match.params.route === "new_division" && (
         <div className={"main"}>
           <NewDivision
@@ -409,6 +431,7 @@ const mapStateToProps = (state) => {
     _new_section: state.new_section,
     _new_docType: state.new_docType,
     _fetch_doc_logs: state.fetch_doc_logs,
+    _fetch_work_logs: state.fetch_work_logs,
   };
 };
 
@@ -439,6 +462,7 @@ const mapDispatchToProps = {
   deleteDocType,
   new_docType,
   fetch_doc_logs,
+  fetch_work_logs,
 };
 
 export default connect(
