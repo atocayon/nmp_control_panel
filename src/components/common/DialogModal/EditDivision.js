@@ -6,8 +6,8 @@ export default function EditDivision(props) {
     <div>
       <i>
         To Edit this division, click the input field and type the changes you
-        want to made and click OK. Changes will reflect automatically to other
-        Information Systems here in National Maritime Polytechnic.
+        want to be made and click OK. Changes will reflect automatically to
+        other Information Systems here in National Maritime Polytechnic.
       </i>
       <br />
       <br />

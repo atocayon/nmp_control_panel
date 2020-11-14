@@ -4,7 +4,7 @@ import axios from "axios";
 const fetch_doc_types = () => {
   return (dispatch) => {
     return axios
-      .get(`http://${process.env.REACT_APP_SERVER}/dts/document/list/types`)
+      .get(`http://${process.env.REACT_APP_SERVER}/document_types`)
       .then((res) => {
         dispatch({ type: actionTypes.FETCH_DOC_TYPES, data: res.data });
       })

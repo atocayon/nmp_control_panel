@@ -53,7 +53,9 @@ export default function NewSection(props) {
                 </option>
               ))}
             </select>
-
+            {error.divid && (
+              <span style={{ color: "red" }}>Division required</span>
+            )}
             <br />
             <br />
             <InputField
@@ -62,6 +64,7 @@ export default function NewSection(props) {
               variant={"outlined"}
               value={props._new_section.section}
               onChange={props.input_change}
+              error={error.section}
             />
             <br />
             <br />
@@ -71,6 +74,7 @@ export default function NewSection(props) {
               variant={"outlined"}
               value={props._new_section.secshort}
               onChange={props.input_change}
+              error={error.secshort}
             />
             <br />
             <br />

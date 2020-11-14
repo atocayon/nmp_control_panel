@@ -5,9 +5,18 @@ import { Link } from "react-router-dom";
 import TablePagination from "@material-ui/core/TablePagination";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import BorderColor from "@material-ui/icons/BorderColor";
+import DialogModal from "../../common/DialogModal";
 export default function DocTypes(props) {
   return (
     <div>
+      <DialogModal
+        data={props.modal}
+        doc_types={props.data}
+        handleDialogModal={props.handleDialogModal}
+        input_change={props.input_change}
+        update={props.update_docType}
+        delete={props.deleteDocType}
+      />
       <div className={"row"}>
         <div className={"col-md-8"}></div>
         <div className={"col-md-4"}>
@@ -26,7 +35,9 @@ export default function DocTypes(props) {
       </div>
 
       <div>
-        <Link className={"btn btn-success"}>Add New Document Type</Link>
+        <Link className={"btn btn-success"} to={"/cpanel/new_docType"}>
+          Add New Document Type
+        </Link>
       </div>
 
       <br />
@@ -41,6 +52,13 @@ export default function DocTypes(props) {
             </tr>
           </thead>
           <tbody>
+            {props.data.length === 0 && (
+              <tr>
+                <td colSpan={2} style={{ textAlign: "center" }}>
+                  No Data Found
+                </td>
+              </tr>
+            )}
             {props.data
               .slice(
                 props.page * props.rowsPerPage,
@@ -53,10 +71,11 @@ export default function DocTypes(props) {
                     <button
                       className={"btn btn-sm btn-danger"}
                       title={"Delete"}
-                      // onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      //   user_id: item.user_id,
-                      //   modal: "delete",
-                      // })}
+                      onClick={props.handleDialogModal.bind(null, {
+                        route: "document_type", //API Route
+                        id: item.id,
+                        type: "delete",
+                      })}
                     >
                       <DeleteForeverIcon />
                     </button>
@@ -64,10 +83,11 @@ export default function DocTypes(props) {
                     <button
                       className={"btn btn-sm btn-warning"}
                       title={"Edit"}
-                      // onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      //   user_id: item.user_id,
-                      //   modal: "Edit",
-                      // })}
+                      onClick={props.handleDialogModal.bind(null, {
+                        route: "document_type", //API Route
+                        id: item.id,
+                        type: "edit",
+                      })}
                     >
                       <BorderColor />
                     </button>

@@ -7,8 +7,8 @@ export default function EditSection(props) {
     <div>
       <i>
         To Edit this section, click the input field and type the changes you
-        want to made and click OK. Changes will reflect automatically to other
-        Information Systems here in National Maritime Polytechnic.
+        want to be made and click OK. Changes will reflect automatically to
+        other Information Systems here in National Maritime Polytechnic.
       </i>
       <br />
       <br />
@@ -22,13 +22,12 @@ export default function EditSection(props) {
       />
       <br />
       <br />
-      <SelectField
+      <InputField
         name={"section"}
-        label={"Department/ Division"}
+        label={"Section Name"}
         variant={"outlined"}
         value={props.data.data.section}
         onChange={props.input_change}
-        option={props.sections}
       />
       <br />
       <br />

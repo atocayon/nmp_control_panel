@@ -56,7 +56,13 @@ export default function DialogModal(props) {
                   />
                 )}
 
-                {props.data.from === "docType" && <EditDocType />}
+                {props.data.from === "document_type" && (
+                  <EditDocType
+                    data={props.data}
+                    types={props.doc_types}
+                    input_change={props.input_change}
+                  />
+                )}
               </>
             )}
 
@@ -64,6 +70,7 @@ export default function DialogModal(props) {
               <>
                 {props.data.from === "division" && <DeleteDivision />}
                 {props.data.from === "section" && <DeleteSection />}
+                {props.data.from === "document_type" && <DeleteDocType />}
               </>
             )}
           </DialogContentText>

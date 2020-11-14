@@ -61,6 +61,13 @@ export default function Sections(props) {
             </tr>
           </thead>
           <tbody>
+            {props.data.length === 0 && (
+              <tr>
+                <td colSpan={3} style={{ textAlign: "center" }}>
+                  No Data Found
+                </td>
+              </tr>
+            )}
             {props.data
               .slice(
                 props.page * props.rowsPerPage,

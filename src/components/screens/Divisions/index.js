@@ -53,7 +53,7 @@ export default function Divisions(props) {
             {props.data.length === 0 && (
               <tr>
                 <td colSpan={3} style={{ textAlign: "center" }}>
-                  No data found
+                  No Data Found
                 </td>
               </tr>
             )}

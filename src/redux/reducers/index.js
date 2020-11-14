@@ -10,6 +10,7 @@ import fetch_doc_types from "./fetch_doc_types";
 import dialog_modal from "./dialog_modal";
 import new_division from "./new_division";
 import new_section from "./new_section";
+import new_docType from "./new_docType";
 const rootReducer = combineReducers({
   login,
   fetch_all_users,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   dialog_modal,
   new_division,
   new_section,
+  new_docType,
 });
 
 export default rootReducer;

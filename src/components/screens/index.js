@@ -12,6 +12,7 @@ import Main from "../screens/Main";
 import UserRegistration from "../screens/UserRegistration";
 import NewDivision from "../screens/NewDivision";
 import NewSection from "../screens/NewSection";
+import NewDocType from "../screens/NewDocType";
 import SideBar from "../common/SideBar";
 import { withSnackbar } from "notistack";
 import { connect } from "react-redux";
@@ -37,6 +38,9 @@ import { new_division } from "../../redux/actions/new_division";
 import { update_section } from "../../redux/actions/update_section";
 import { deleteSection } from "../../redux/actions/deleteSection";
 import { new_section } from "../../redux/actions/new_section";
+import { update_docType } from "../../redux/actions/update_docType";
+import { deleteDocType } from "../../redux/actions/deleteDocType";
+import { new_docType } from "../../redux/actions/new_docType";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
@@ -137,6 +141,16 @@ function Screens(props) {
         props.clear_message();
       }
     }
+
+    if (props._new_docType.message !== "") {
+      if (props._new_docType.message === "success") {
+        const variant = "success";
+        props.enqueueSnackbar(`Added Success!`, {
+          variant,
+        });
+        props.clear_message();
+      }
+    }
   }, [
     redirect,
     props.match.params,
@@ -146,6 +160,7 @@ function Screens(props) {
     props.dialog_modal.message,
     props._new_division.message,
     props._new_section.message,
+    props._new_docType.message,
   ]);
 
   const onLogin = (e) => {
@@ -284,6 +299,11 @@ function Screens(props) {
             handleChangePage={handleChangePage}
             handleChangeRowsPerPage={handleChangeRowsPerPage}
             input_change={props.input_change}
+            search={props.search}
+            handleDialogModal={props.handleDialogModal}
+            modal={props.dialog_modal}
+            update_docType={props.update_docType}
+            deleteDocType={props.deleteDocType}
           />
         </div>
       )}
@@ -320,6 +340,16 @@ function Screens(props) {
           />
         </div>
       )}
+
+      {props.match.params.route === "new_docType" && (
+        <div className={"main"}>
+          <NewDocType
+            input_change={props.input_change}
+            _new_docType={props._new_docType}
+            new_docType={props.new_docType}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -337,6 +367,7 @@ const mapStateToProps = (state) => {
     dialog_modal: state.dialog_modal,
     _new_division: state.new_division,
     _new_section: state.new_section,
+    _new_docType: state.new_docType,
   };
 };
 
@@ -363,6 +394,9 @@ const mapDispatchToProps = {
   update_section,
   deleteSection,
   new_section,
+  update_docType,
+  deleteDocType,
+  new_docType,
 };
 
 export default connect(
