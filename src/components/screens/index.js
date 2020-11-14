@@ -11,6 +11,7 @@ import DocTypes from "../screens/DocTypes";
 import Main from "../screens/Main";
 import UserRegistration from "../screens/UserRegistration";
 import NewDivision from "../screens/NewDivision";
+import NewSection from "../screens/NewSection";
 import SideBar from "../common/SideBar";
 import { withSnackbar } from "notistack";
 import { connect } from "react-redux";
@@ -33,6 +34,9 @@ import { handleDialogModal } from "../../redux/actions/handleDialogModal";
 import { update_division } from "../../redux/actions/update_division";
 import { deleteDivision } from "../../redux/actions/deleteDivision";
 import { new_division } from "../../redux/actions/new_division";
+import { update_section } from "../../redux/actions/update_section";
+import { deleteSection } from "../../redux/actions/deleteSection";
+import { new_section } from "../../redux/actions/new_section";
 function Screens(props) {
   const [loading, setLoading] = useState(true);
   const [endSession, setEndSession] = useState(false);
@@ -110,18 +114,22 @@ function Screens(props) {
       }
     }
 
-    if (props._division_modal.message !== "") {
-      if (props._division_modal.message === "success") {
+    if (props.dialog_modal.message !== "") {
+      props.clear_message();
+    }
+
+    if (props._new_division.message !== "") {
+      if (props._new_division.message === "success") {
         const variant = "success";
-        props.enqueueSnackbar(`Edit Success!`, {
+        props.enqueueSnackbar(`Added Success!`, {
           variant,
         });
         props.clear_message();
       }
     }
 
-    if (props._new_division.message !== "") {
-      if (props._new_division.message === "success") {
+    if (props._new_section.message !== "") {
+      if (props._new_section.message === "success") {
         const variant = "success";
         props.enqueueSnackbar(`Added Success!`, {
           variant,
@@ -135,8 +143,9 @@ function Screens(props) {
     props._login.message,
     props.user_update_modal.update,
     props._user_registration.message,
-    props._division_modal.message,
+    props.dialog_modal.message,
     props._new_division.message,
+    props._new_section.message,
   ]);
 
   const onLogin = (e) => {
@@ -231,7 +240,7 @@ function Screens(props) {
             handleChangePage={handleChangePage}
             handleChangeRowsPerPage={handleChangeRowsPerPage}
             input_change={props.input_change}
-            modal={props._division_modal}
+            modal={props.dialog_modal}
             handleDialogModal={props.handleDialogModal}
             search={props.search}
             update_division={props.update_division}
@@ -244,11 +253,16 @@ function Screens(props) {
         <div className={"main"}>
           <Sections
             data={props._fetch_sections}
+            divisions={props._fetch_divisions}
             page={page}
             rowsPerPage={rowsPerPage}
             handleChangePage={handleChangePage}
             handleChangeRowsPerPage={handleChangeRowsPerPage}
             input_change={props.input_change}
+            handleDialogModal={props.handleDialogModal}
+            modal={props.dialog_modal}
+            update_section={props.update_section}
+            deleteSection={props.deleteSection}
           />
         </div>
       )}
@@ -293,6 +307,18 @@ function Screens(props) {
           />
         </div>
       )}
+
+      {props.match.params.route === "new_section" && (
+        <div className={"main"}>
+          <NewSection
+            input_change={props.input_change}
+            sections={props._fetch_sections}
+            divisions={props._fetch_divisions}
+            _new_section={props._new_section}
+            new_section={props.new_section}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -307,8 +333,9 @@ const mapStateToProps = (state) => {
     _user_registration: state.user_registration,
     _fetch_divisions: state.fetch_divisions,
     _fetch_doc_types: state.fetch_doc_types,
-    _division_modal: state.division_modal,
+    dialog_modal: state.dialog_modal,
     _new_division: state.new_division,
+    _new_section: state.new_section,
   };
 };
 
@@ -332,6 +359,9 @@ const mapDispatchToProps = {
   update_division,
   deleteDivision,
   new_division,
+  update_section,
+  deleteSection,
+  new_section,
 };
 
 export default connect(

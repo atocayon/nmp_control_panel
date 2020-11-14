@@ -1,6 +1,6 @@
 import actionTypes from "../actions/actionTypes";
 
-const division_modal = (
+const dialog_modal = (
   state = {
     open: false,
     type: "",
@@ -41,4 +41,4 @@ const division_modal = (
   }
 };
 
-export default division_modal;
+export default dialog_modal;

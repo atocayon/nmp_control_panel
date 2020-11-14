@@ -5,9 +5,28 @@ import { Link } from "react-router-dom";
 import TablePagination from "@material-ui/core/TablePagination";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import BorderColor from "@material-ui/icons/BorderColor";
+import DialogModal from "../../common/DialogModal";
 export default function Sections(props) {
+  let divisions = [];
+  let sections = [];
+  for (let i of props.divisions) {
+    divisions.push({ id: i.divid, value: i.department });
+  }
+
+  for (let x of props.data) {
+    sections.push({ id: x.department, value: x.department });
+  }
   return (
     <div>
+      <DialogModal
+        data={props.modal}
+        handleDialogModal={props.handleDialogModal}
+        input_change={props.input_change}
+        update={props.update_section}
+        delete={props.deleteSection}
+        divisions={divisions}
+        sections={sections}
+      />
       <div className={"row"}>
         <div className={"col-md-8"}></div>
         <div className={"col-md-4"}>
@@ -26,11 +45,13 @@ export default function Sections(props) {
       </div>
 
       <div>
-        <Link className={"btn btn-success"}>Add New Section</Link>
+        <Link className={"btn btn-success"} to={"/cpanel/new_section"}>
+          Add New Section
+        </Link>
       </div>
 
       <div>
-        <br/>
+        <br />
         <table className={"table table-striped table-hover"}>
           <thead>
             <tr>
@@ -53,10 +74,11 @@ export default function Sections(props) {
                     <button
                       className={"btn btn-sm btn-danger"}
                       title={"Delete"}
-                      // onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      //   user_id: item.user_id,
-                      //   modal: "delete",
-                      // })}
+                      onClick={props.handleDialogModal.bind(null, {
+                        route: "section", //API Route
+                        id: item.secid,
+                        type: "delete",
+                      })}
                     >
                       <DeleteForeverIcon />
                     </button>
@@ -64,10 +86,11 @@ export default function Sections(props) {
                     <button
                       className={"btn btn-sm btn-warning"}
                       title={"Edit"}
-                      // onClick={props.handleOpenUserUpdateModal.bind(null, {
-                      //   user_id: item.user_id,
-                      //   modal: "Edit",
-                      // })}
+                      onClick={props.handleDialogModal.bind(null, {
+                        route: "section", //API Route
+                        id: item.secid,
+                        type: "edit",
+                      })}
                     >
                       <BorderColor />
                     </button>
@@ -77,7 +100,7 @@ export default function Sections(props) {
           </tbody>
         </table>
         <TablePagination
-          rowsPerPageOptions={[ 10,15, 20, 40, 80]}
+          rowsPerPageOptions={[10, 15, 20, 40, 80]}
           component="div"
           count={props.data.length}
           rowsPerPage={props.rowsPerPage}

@@ -18,12 +18,11 @@ export default function NewDivision(props) {
   };
 
   const onSubmit = (e) => {
-    
     e.preventDefault();
     if (!validation()) {
       return;
     }
-    console.log(props._new_division);
+
     return props.new_division(props._new_division);
   };
   return (

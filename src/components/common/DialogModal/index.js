@@ -47,14 +47,24 @@ export default function DialogModal(props) {
                   />
                 )}
 
-                {props.data.from === "section" && <EditSection />}
+                {props.data.from === "section" && (
+                  <EditSection
+                    data={props.data}
+                    input_change={props.input_change}
+                    divisions={props.divisions}
+                    sections={props.sections}
+                  />
+                )}
 
                 {props.data.from === "docType" && <EditDocType />}
               </>
             )}
 
             {props.data.type === "delete" && (
-              <>{props.data.from === "division" && <DeleteDivision />}</>
+              <>
+                {props.data.from === "division" && <DeleteDivision />}
+                {props.data.from === "section" && <DeleteSection />}
+              </>
             )}
           </DialogContentText>
         </DialogContent>
@@ -68,18 +78,12 @@ export default function DialogModal(props) {
           <Button
             onClick={(e) => {
               e.preventDefault();
-              if (
-                props.data.type === "edit" &&
-                props.data.from === "division"
-              ) {
-                return props.update_division(props.data.data);
+              if (props.data.type === "edit") {
+                return props.update(props.data.data);
               }
 
-              if (
-                props.data.type === "delete" &&
-                props.data.from === "division"
-              ) {
-                return props.deleteDivision(props.data.data);
+              if (props.data.type === "delete") {
+                return props.delete(props.data.data);
               }
             }}
             color="primary"

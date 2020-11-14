@@ -30,7 +30,7 @@ export default function SelectField(props) {
       <Select
         label={props.label}
         value={props.value}
-        displayEmpty
+        displayEmpty={props.displayEmpty}
         name={props.name}
         onChange={props.onChange}
       >
@@ -43,6 +43,7 @@ export default function SelectField(props) {
               : ""}
           </em>
         </MenuItem>
+
         {props.value !== null && props.value
           ? props.option
               .filter(
