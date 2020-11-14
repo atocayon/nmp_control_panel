@@ -8,12 +8,14 @@ const fetch_all_users = (state = [], action) => {
     case actionTypes.SEARCH:
       return [...state].filter((item) => {
         if (
-          item.employeeId.charAt(0) === action.data.charAt(0) ||
-          item.name.charAt(0) === action.data.charAt(0) ||
-          item.employeeId.charAt(item.employeeId.length - 1) ===
-            action.data.charAt(action.data.length - 1) ||
-          item.name.charAt(item.name.length - 1) ===
-            action.data.charAt(action.data.length - 1)
+          item.employeeId.charAt(0).toLowerCase() ===
+            action.data.charAt(0).toLowerCase() ||
+          item.name.charAt(0).toLowerCase() ===
+            action.data.charAt(0).toLowerCase() ||
+          item.employeeId.charAt(item.employeeId.length - 1).toLowerCase() ===
+            action.data.charAt(action.data.length - 1).toLowerCase() ||
+          item.name.charAt(item.name.length - 1).toLowerCase() ===
+            action.data.charAt(action.data.length - 1).toLowerCase()
         ) {
           return item;
         }

@@ -263,6 +263,7 @@ function Screens(props) {
             modal={props.dialog_modal}
             update_section={props.update_section}
             deleteSection={props.deleteSection}
+            search={props.search}
           />
         </div>
       )}

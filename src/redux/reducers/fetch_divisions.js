@@ -8,9 +8,10 @@ const fetch_divisions = (state = [], action) => {
     case actionTypes.SEARCH:
       return [...state].filter((item) => {
         if (
-          item.department.charAt(0) === action.data.charAt(0) ||
-          item.department.charAt(item.department.length - 1) ===
-            action.data.charAt(action.data.length - 1)
+          item.department.charAt(0).toLowerCase() ===
+            action.data.charAt(0).toLowerCase() ||
+          item.department.charAt(item.department.length - 1).toLowerCase() ===
+            action.data.charAt(action.data.length - 1).toLowerCase()
         ) {
           return item;
         }
